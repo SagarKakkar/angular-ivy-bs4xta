@@ -1,19 +1,28 @@
 <h5>Add New Candidate</h5>
-<form [formGroup]="addUserForm">
+<form [formGroup]="addUserForm" (ngSubmit)="saveUser()">
   <div>
     <div>
       <label>First Name</label>
-      <input type="text" formControlName="firstName"  placeholder="Type first name" maxlength="25" >
+      <input type="text" formControlName="firstName" [(ngModel)]="firstName" placeholder="Type first name" maxlength="25"  pattern="[a-zA-Z][a-zA-Z ]+">
     </div>
 
     <div>
       <label>Last Name</label>
-      <input type="text" formControlName="lastName"  placeholder="Type last name" maxlength="25" pattern="[a-zA-Z][a-zA-Z ]+">
+      <input type="text" formControlName="lastName" [(ngModel)]="lastName" placeholder="Type last name" maxlength="25" pattern="[a-zA-Z][a-zA-Z ]+">
     </div>
 
     <div>
       <label>Email</label>
-      <input type="text" formControlName="email" placeholder="Type email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+      <input type="text" formControlName="email" [(ngModel)]="email" placeholder="Type email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+    </div>
+
+    <div class="form-group-default required">
+      <label>Gender<span>*</span></label>
+      <select formControlName="gender" [(ngModel)]="gender">
+      <option value="-1">Select Gender</option>
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+    </select>
     </div>
 
     <button type="submit">Save</button>

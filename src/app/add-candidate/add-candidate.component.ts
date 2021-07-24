@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  Validators
+} from '@angular/forms';
 import { UserDto } from './UserDto';
 
 @Component({
@@ -11,6 +17,7 @@ export class AddCandidateComponent implements OnInit {
   firstName: string;
   lastName: string;
   email: string;
+  gender: String = '-1';
   addUser: boolean = false;
   editUser: boolean = false;
   addUserForm: FormGroup;
@@ -19,7 +26,20 @@ export class AddCandidateComponent implements OnInit {
   userObj: UserDto = new UserDto();
   usersList: UserDto[] = new Array();
 
-  constructor() {}
+  constructor(public formbuilder: FormBuilder) {
+    this.addUserForm = this.formbuilder.group({
+      firstName: [
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(25)])
+      ],
+      lastName: [
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(25)])
+      ],
+      email: ['', Validators.required],
+      gender: ['-1']
+    });
+  }
 
   ngOnInit() {
     this.add = true;
@@ -29,10 +49,7 @@ export class AddCandidateComponent implements OnInit {
     this.firstName = '';
     this.lastName = '';
     this.email = '';
-
-    // this.service.getUserList().subscribe((obj: any) => {
-    //   this.usersList = obj.Data;
-    // });
+    this.gender = '-1';
   }
 
   saveUser() {
@@ -40,17 +57,14 @@ export class AddCandidateComponent implements OnInit {
     this.userObj.FIRST_NAME = this.addUserForm.value.firstName;
     this.userObj.LAST_NAME = this.addUserForm.value.lastName;
     this.userObj.email = this.addUserForm.value.email;
-    this.usersList = this.usersList;
-    // this.service.saveUser(this.userObj).subscribe((obj: any) => {
-    //   if (obj.ResponseCode == 200) {
-    //     this.service.getUserList().subscribe((obj: any) => {
-    //       this.usersList = obj.Data;
-    //       this.dataSource.data = this.usersList;
-    //     });
-    //     //   ("add user successful");
-    //   } else {
-    //     //   ("add not successful");
-    //   }
-    // });
+    this.userObj.gender = this.addUserForm.value.gender;
+    this.usersList.push(this.userObj);
+
+    console.log(JSON.stringify(this.usersList));
+
+    this.firstName = '';
+    this.lastName = '';
+    this.email = '';
+    this.gender = '-1';
   }
 }
