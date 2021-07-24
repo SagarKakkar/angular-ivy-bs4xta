@@ -1,4 +1,5 @@
 import { Component, VERSION } from '@angular/core';
+import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 
 @Component({
   selector: 'my-app',

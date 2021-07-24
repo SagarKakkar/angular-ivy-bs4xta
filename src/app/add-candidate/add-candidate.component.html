@@ -1,0 +1,21 @@
+<h5>Add New Candidate</h5>
+<form [formGroup]="addUserForm">
+  <div>
+    <div>
+      <label>First Name</label>
+      <input type="text" formControlName="firstName"  placeholder="Type first name" maxlength="25" >
+    </div>
+
+    <div>
+      <label>Last Name</label>
+      <input type="text" formControlName="lastName"  placeholder="Type last name" maxlength="25" pattern="[a-zA-Z][a-zA-Z ]+">
+    </div>
+
+    <div>
+      <label>Email</label>
+      <input type="text" formControlName="email" placeholder="Type email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+    </div>
+
+    <button type="submit">Save</button>
+  </div>
+</form>
